@@ -5,12 +5,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:taskati/core/constants/app_images.dart';
 import 'package:taskati/core/functions/navigation.dart';
 import 'package:taskati/core/functions/snackbar.dart';
-import 'package:taskati/core/functions/username_validation.dart';
 import 'package:taskati/core/utils/colors.dart';
 import 'package:taskati/core/utils/text_styles.dart';
 import 'package:taskati/core/widgets/custom_buttom.dart';
 import 'package:taskati/core/widgets/custom_text_field.dart';
 import 'package:taskati/features/Home/home_screen.dart';
+import 'package:taskati/services/local_helper.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
@@ -30,6 +30,7 @@ class _UploadScreenState extends State<UploadScreen> {
           TextButton(
             onPressed: () {
               if (imgPath.isNotEmpty && namecontroller.text.isNotEmpty) {
+                LocalHelper.putUserData(imgPath, namecontroller.text);
                 pushAndRemoveUntil(context, HomeScreen());
                 showSnakBar(
                   context,
@@ -101,7 +102,6 @@ class _UploadScreenState extends State<UploadScreen> {
                 customTextformfield(
                   hintText: "Enter Your Name",
                   controller: namecontroller,
-                  validator: usernameValidation,
                 ),
               ],
             ),

@@ -3,7 +3,9 @@ import 'package:lottie/lottie.dart';
 import 'package:taskati/core/constants/app_images.dart';
 import 'package:taskati/core/functions/navigation.dart';
 import 'package:taskati/core/utils/text_styles.dart';
+import 'package:taskati/features/Home/home_screen.dart';
 import 'package:taskati/features/upload/upload_screen.dart';
+import 'package:taskati/services/local_helper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 5), () {
-      pushReplacment(context, UploadScreen());
+      bool isUploaded = LocalHelper.getData(LocalHelper.isUploaded) ?? false;
+      pushReplacment(context, isUploaded ? HomeScreen() : UploadScreen());
     });
   }
 
@@ -39,3 +42,5 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+
+//! fb
