@@ -23,7 +23,7 @@ Taskati is a **Flutter task management app** that helps users organize their dai
 - **Material Design**
 
 
-## 📸 Screens (Expected)
+## 📸 Screens
 - **Profile Setup Screen** → Upload photo & enter name.  
 - **Add Task Screen** → Add task with title, description, date, time, and color.  
 - **Tasks Screen** → List of all tasks with option to delete.  
@@ -47,3 +47,4 @@ Taskati is a **Flutter task management app** that helps users organize their dai
 ## 👨‍💻 Author
 **Taskati** was developed by Amr Elrayes (Flutter Developer).  
 Feel free to contribute or suggest improvements! 🚀
+
