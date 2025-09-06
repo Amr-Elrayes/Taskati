@@ -5,6 +5,9 @@ import 'package:taskati/core/utils/colors.dart';
 import 'package:taskati/core/utils/text_styles.dart';
 import 'package:taskati/core/widgets/custom_buttom.dart';
 import 'package:taskati/core/widgets/custom_text_field.dart';
+import 'package:taskati/features/Adding%20Task/widgets/color_field.dart';
+import 'package:taskati/features/Adding%20Task/widgets/date_field.dart';
+import 'package:taskati/features/Adding%20Task/widgets/time_field.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({super.key});
@@ -14,42 +17,17 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  var namecontroller = TextEditingController();
+  var titlecontroller = TextEditingController();
   var descriptioncontroller = TextEditingController();
-
-  DateTime? selectedDate;
-  TimeOfDay? startTime;
-  TimeOfDay? endTime;
-
-  Future<void> _pickDate() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
-
-  Future<void> _pickTime(bool isStart) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    if (picked != null) {
-      setState(() {
-        if (isStart) {
-          startTime = picked;
-        } else {
-          endTime = picked;
-        }
-      });
-    }
-  }
+  var datecontroller = TextEditingController(
+    text: DateFormat("yyyy-MM-dd").format(DateTime.now()),
+  );
+  var starttimecontroller = TextEditingController(
+    text: DateFormat("hh:mm a").format(DateTime.now()),
+  );
+  var endtimecontroller = TextEditingController(
+    text: DateFormat("hh:mm a").format(DateTime.now()),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +39,9 @@ class _AddTaskState extends State<AddTask> {
         appBar: AppBar(
           centerTitle: true,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(
               Icons.arrow_back_outlined,
               size: 30,
@@ -91,7 +71,7 @@ class _AddTaskState extends State<AddTask> {
                 ),
                 Gap(10),
                 customTextformfield(
-                  controller: namecontroller,
+                  controller: titlecontroller,
                   hintText: "Enter title",
                 ),
                 Gap(10),
@@ -109,132 +89,27 @@ class _AddTaskState extends State<AddTask> {
                   maxlines: 7,
                 ),
                 Gap(10),
-                Text(
-                  "Date",
-                  style: TextStyles.titlestyle(
-                    fontweight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-                ),
-                Gap(10),
-                GestureDetector(
-                  onTap: _pickDate,
-                  child: AbsorbPointer(
-                    child: customTextformfield(
-                      controller: TextEditingController(
-                        text: selectedDate == null
-                            ? DateFormat('yyyy-M-d').format(DateTime.now())
-                            : DateFormat('yyyy-M-d').format(selectedDate!),
-                      ),
-                      icon: Icon(
-                        Icons.calendar_month_outlined,
-                        size: 20,
-                        color: AppColors.darkColor,
-                      ),
-                    ),
-                  ),
-                ),
+                DateField(datecontroller: datecontroller),
                 Gap(20),
                 Row(
                   children: [
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Start Time",
-                            style: TextStyles.titlestyle(
-                              fontweight: FontWeight.w500,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Gap(10),
-                          GestureDetector(
-                            onTap: () => _pickTime(true),
-                            child: AbsorbPointer(
-                              child: customTextformfield(
-                                controller: TextEditingController(
-                                  text: startTime == null
-                                      ? DateFormat(
-                                          'hh:mm a',
-                                        ).format(DateTime.now())
-                                      : startTime!.format(context),
-                                ),
-                                icon: Icon(
-                                  Icons.access_time,
-                                  size: 20,
-                                  color: AppColors.darkColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: TimeField(
+                        timecontroller: starttimecontroller,
+                        time: "Start",
                       ),
                     ),
                     Gap(15),
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "End Time",
-                            style: TextStyles.titlestyle(
-                              fontweight: FontWeight.w500,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Gap(10),
-                          GestureDetector(
-                            onTap: () => _pickTime(false),
-                            child: AbsorbPointer(
-                              child: customTextformfield(
-                                controller: TextEditingController(
-                                  text: endTime == null
-                                      ? DateFormat(
-                                          'hh:mm a',
-                                        ).format(DateTime.now())
-                                      : endTime!.format(context),
-                                ),
-                                icon: Icon(
-                                  Icons.access_time,
-                                  size: 20,
-                                  color: AppColors.darkColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: TimeField(
+                        timecontroller: endtimecontroller,
+                        time: "End",
                       ),
                     ),
                   ],
                 ),
                 Gap(15),
-                Text(
-                  "Color",
-                  style: TextStyles.titlestyle(
-                    fontweight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-                ),
-                Gap(10),
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 23,
-                      backgroundColor: AppColors.primaryColor,
-                    ),
-                    Gap(15),
-                    CircleAvatar(
-                      radius: 23,
-                      backgroundColor: AppColors.orangeColor,
-                    ),
-                    Gap(15),
-                    CircleAvatar(
-                      radius: 23,
-                      backgroundColor: AppColors.redColor,
-                    ),
-                  ],
-                ),
+                ColorField(),
                 Gap(20),
                 customButtom(txt: "Create Task", onPressed: () {}),
               ],
