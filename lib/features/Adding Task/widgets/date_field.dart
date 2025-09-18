@@ -42,7 +42,7 @@ class DateField extends StatelessWidget {
           icon: Icon(
             Icons.calendar_month_outlined,
             size: 20,
-            color: AppColors.darkColor,
+            color: AppColors.primaryColor,
           ),
         ),
       ],

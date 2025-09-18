@@ -39,7 +39,11 @@ class TimeField extends StatelessWidget {
             }
           },
           controller: timecontroller,
-          icon: Icon(Icons.access_time, size: 20, color: AppColors.darkColor),
+          icon: Icon(
+            Icons.access_time,
+            size: 20,
+            color: AppColors.primaryColor,
+          ),
         ),
       ],
     );

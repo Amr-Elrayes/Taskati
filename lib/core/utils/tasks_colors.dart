@@ -5,4 +5,5 @@ List<Color> taskColors = [
     AppColors.primaryColor,
     AppColors.redColor,
     AppColors.orangeColor,
+    AppColors.successColor,
   ];

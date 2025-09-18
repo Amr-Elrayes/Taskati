@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:taskati/core/utils/colors.dart';
 
 class TextStyles {
   static TextStyle titlestyle({
-    Color color = AppColors.darkColor,
+    Color? color,
     double fontSize = 18,
     FontWeight fontweight = FontWeight.w600,
   }) {
@@ -15,7 +14,7 @@ class TextStyles {
     );
   }
   static TextStyle bodystyle({
-    Color color = AppColors.darkColor,
+    Color? color,
     double fontSize = 16,
     FontWeight fontweight = FontWeight.w600,
   }) {
@@ -26,7 +25,7 @@ class TextStyles {
     );
   }
   static TextStyle smallstyle({
-    Color color = AppColors.grayColor,
+    Color? color,
     double fontSize = 14,
     FontWeight fontweight = FontWeight.w600,
   }) {

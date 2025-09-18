@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taskati/core/functions/navigation.dart';
-import 'package:taskati/core/utils/colors.dart';
 import 'package:taskati/core/utils/text_styles.dart';
 import 'package:taskati/core/widgets/custom_buttom.dart';
-import 'package:taskati/features/Adding%20Task/add_task.dart';
+import 'package:taskati/features/Adding%20Task/add_edit_task.dart';
 
 class DateRow extends StatelessWidget {
   const DateRow({super.key});
@@ -19,7 +18,7 @@ class DateRow extends StatelessWidget {
           children: [
             Text(
               DateFormat.yMMMd().format(DateTime.now()).toString(),
-              style: TextStyles.titlestyle(color: AppColors.darkColor),
+              style: TextStyles.titlestyle(),
             ),
             Text("Today", style: TextStyles.titlestyle()),
           ],
@@ -27,7 +26,7 @@ class DateRow extends StatelessWidget {
         customButtom(
           txt: "+ Add Task",
           onPressed: () {
-            pushTo(context, AddTask());
+            pushTo(context, AddEditTask());
           },
           width: 150,
           height: 60,

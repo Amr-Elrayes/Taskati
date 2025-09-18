@@ -13,27 +13,35 @@ import 'package:taskati/features/Adding%20Task/widgets/time_field.dart';
 import 'package:taskati/features/Home/home_screen.dart';
 import 'package:taskati/services/local_helper.dart';
 
-class AddTask extends StatefulWidget {
-  const AddTask({super.key});
-
+class AddEditTask extends StatefulWidget {
+  AddEditTask({super.key, this.task});
+  final TaskModel? task;
   @override
-  State<AddTask> createState() => _AddTaskState();
+  State<AddEditTask> createState() => _AddEditTaskState();
 }
 
-class _AddTaskState extends State<AddTask> {
+class _AddEditTaskState extends State<AddEditTask> {
   int currentIndex = 0;
   var formKey = GlobalKey<FormState>();
   var titlecontroller = TextEditingController();
   var descriptioncontroller = TextEditingController();
-  var datecontroller = TextEditingController(
-    text: DateFormat("yyyy-MM-dd").format(DateTime.now()),
-  );
-  var starttimecontroller = TextEditingController(
-    text: DateFormat("hh:mm a").format(DateTime.now()),
-  );
-  var endtimecontroller = TextEditingController(
-    text: DateFormat("hh:mm a").format(DateTime.now()),
-  );
+  var datecontroller = TextEditingController();
+  var starttimecontroller = TextEditingController();
+  var endtimecontroller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    titlecontroller.text = widget.task?.title ?? '';
+    descriptioncontroller.text = widget.task?.description ?? '';
+    datecontroller.text =
+        widget.task?.date ?? DateFormat("yyyy-MM-dd").format(DateTime.now());
+    starttimecontroller.text =
+        widget.task?.starttime ?? DateFormat("hh:mm a").format(DateTime.now());
+    endtimecontroller.text =
+        widget.task?.endtime ?? DateFormat("hh:mm a").format(DateTime.now());
+    currentIndex = widget.task?.color ?? 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +63,7 @@ class _AddTaskState extends State<AddTask> {
             ),
           ),
           title: Text(
-            "Add Task",
+            (widget.task != null) ? "Edit Task" : "Add Task",
             style: TextStyles.titlestyle(
               color: AppColors.primaryColor,
               fontSize: 20,
@@ -157,12 +165,17 @@ class _AddTaskState extends State<AddTask> {
                   ),
                   Gap(20),
                   customButtom(
-                    txt: "Create Task",
+                    txt: (widget.task != null) ? "Edit Task" : "Add Task",
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        var id =
-                            DateTime.now().millisecondsSinceEpoch.toString() +
-                            titlecontroller.text;
+                        var id = '';
+                        if (widget.task != null) {
+                          id = widget.task?.id ?? '';
+                        } else {
+                          id =
+                              DateTime.now().millisecondsSinceEpoch.toString() +
+                              titlecontroller.text;
+                        }
                         await LocalHelper.putTaskData(
                           id,
                           TaskModel(

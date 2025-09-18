@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 part 'task_model.g.dart';
+
 @HiveType(typeId: 1)
 class TaskModel {
   @HiveField(0)
@@ -19,7 +20,6 @@ class TaskModel {
   @HiveField(7)
   bool isCompleted = false;
 
-
   TaskModel(
     this.id,
     this.title,
@@ -28,6 +28,28 @@ class TaskModel {
     this.starttime,
     this.endtime,
     this.color,
-    this.isCompleted
+    this.isCompleted,
   );
+
+  TaskModel copywith({
+    String? id,
+    String? title,
+    String? description,
+    String? date,
+    String? starttime,
+    String? endtime,
+    int? color,
+    bool? isCompleted,
+  }) {
+    return TaskModel(
+      id ?? this.id,
+      title ?? this.title,
+      description ?? this.description,
+      date ?? this.date,
+      starttime ?? this.starttime,
+      endtime ?? this.endtime,
+      color ?? this.color,
+      isCompleted ?? this.isCompleted,
+    );
+  }
 }

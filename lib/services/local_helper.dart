@@ -7,6 +7,7 @@ class LocalHelper {
   static String Kname = "name";
   static String Kimage = "image";
   static String isUploaded = "isUploaded";
+  static String isDark = "isDark";
 
   static init() async {
     Hive.registerAdapter(TaskModelAdapter());
@@ -34,5 +35,11 @@ class LocalHelper {
     putData(Kname, name);
     putData(Kimage, imgPath);
     putData(isUploaded, true);
+  }
+
+  static changeTheme()
+  {
+    bool isChanged =LocalHelper.getData(isDark) ?? false;
+    userBox.put(isDark, !isChanged);
   }
 }
