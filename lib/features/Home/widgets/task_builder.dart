@@ -92,6 +92,7 @@ class _taskBuilderState extends State<taskBuilder> {
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
+                                    setState(() {});
                                   },
                                   child: Text("Cancle"),
                                 ),
